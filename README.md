@@ -40,32 +40,43 @@ Long term, I want to build reusable, scalable verification environments similar 
 
 ## Project Structure  
 
-Each directory is a focused, self-contained exercise.  
-All share a common build system through `.support/common.mk`.
+Each chapter is a focused, self-contained exercise.  
+All chapters share a common build system through `.support/common.mk` — no per-project boilerplate needed.
 
 ```bash
-.support/         # Shared Makefile rules + UVM DPI glue
-alu/              # 4-bit ALU with full UVM testbench (agent, sequences, scoreboard)
-classes_objects/  # SystemVerilog class/object fundamentals
-hello/            # Minimal sanity test
+.support/              # Shared Makefile rules + UVM DPI glue (included by every chapter)
+chapter0_template/     # Example chapter — copy this to start a new one
+    Makefile           # Only needs TOP and optionally INCDIRS/TRACE
+    *.sv               # Your design + testbench files
+```
+
+Every chapter Makefile looks like this:
+
+```makefile
+TOP    := my_design.sv my_tb.sv   # source files (space-separated, top module last)
+INCDIRS := +incdir+rtl +incdir+tb # optional include directories
+TRACE  := 0                       # set to 1 to generate a VCD waveform
+include ../.support/common.mk
 ```
 
 ---
 
-## Quick Start  
+## Build & Run  
 
 ### Prerequisites
 
 - Verilator installed  
 - UVM installed at `~/uvm-core`  
-  *(or set `UVM_HOME` environment variable)*  
+  *(or override with `UVM_HOME=/your/path make`)*  
 
-### Build & Run
+### Commands
 
 ```bash
-cd alu
-make                                  # build + run
-make SEED=12345                       # reproduce a specific randomized run
-make TRACE=1                          # dump VCD waveform
-make SEED=12345 TRACE=1 top=packet.sv # combine all
+make                        # build and run simulation
+make SEED=12345             # reproduce a specific randomized run
+make TRACE=1                # dump VCD waveform (then: make wave)
+make top=other.sv           # override which file(s) to compile
+make SEED=12345 TRACE=1     # combine flags freely
+make clean                  # delete build artifacts
+make wave                   # open waveform in GTKWave (requires TRACE=1 first)
 ```
