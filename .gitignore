@@ -1,0 +1,6 @@
+# Build artifacts
+build/
+sim.log
+
+# Generated at build time — contains machine-specific absolute paths
+.support/include/uvm_dpi_srcs.h

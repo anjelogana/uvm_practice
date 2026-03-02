@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "UVM / Verilator (macOS)",
+            "includePath": [
+                "/opt/homebrew/Cellar/verilator/5.044/share/verilator/include",
+                "/opt/homebrew/Cellar/verilator/5.044/share/verilator/include/vltstd",
+                "/Users/anjelo/uvm-core/src/dpi",
+                "${workspaceFolder}/.support/include"
+            ],
+            "defines": [
+                "UVM_SRC_DPI=\"/Users/anjelo/uvm-core/src/dpi\""
+            ],
+            "forcedInclude": [
+                "/opt/homebrew/Cellar/verilator/5.044/share/verilator/include/vltstd/svdpi.h"
+            ],
+            "compilerPath": "/usr/bin/clang++",
+            "cStandard": "c11",
+            "cppStandard": "gnu++20",
+            "intelliSenseMode": "macos-clang-arm64"
+        }
+    ],
+    "version": 4
+}
